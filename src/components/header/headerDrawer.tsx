@@ -17,7 +17,7 @@ export default function HeaderDrawer() {
       <SheetTrigger className="xl:hidden cursor-pointer select-none" asChild>
         <Menu />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent side="left" className="w-4/5 xsm:w-[320px] sm:w-[320px]">
         <SheetTitle className="px-2 uppercase text-xl text-primary">
           Menu
         </SheetTitle>

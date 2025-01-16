@@ -18,7 +18,7 @@ export default function DrawerNavLink({
         href={href}
         className="flex justify-between items-center px-2 py-2 hover:bg-gray-100 rounded-lg transition-colors"
       >
-        <div className="flex items-center gap-4 text-lg font-medium">
+        <div className="flex items-center gap-4 xsm:text-lg font-medium">
           {icon}
           {text}
         </div>
