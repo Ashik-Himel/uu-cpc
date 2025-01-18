@@ -104,8 +104,9 @@ export default function SpaceAnimation() {
       const dots = document.querySelectorAll(".dot");
 
       dots.forEach((dot) => {
-        dot.addEventListener("click", (e) => {
-          const sphere = dot.querySelector(".sphere") as HTMLElement;
+        const dotElement = dot as HTMLElement;
+        dotElement.addEventListener("click", (e: MouseEvent) => {
+          const sphere = dotElement.querySelector(".sphere") as HTMLElement;
           if (!sphere) return;
 
           sphere.style.animationDirection =
@@ -114,13 +115,13 @@ export default function SpaceAnimation() {
               : "reverse";
 
           const color = window.getComputedStyle(
-            dot.querySelector(".sphere-surface") as Element
+            dotElement.querySelector(".sphere-surface") as Element
           ).backgroundColor;
           createParticles(e.clientX, e.clientY, color);
         });
 
-        dot.addEventListener("mouseenter", () => {
-          const sphere = dot.querySelector(".sphere") as HTMLElement;
+        dotElement.addEventListener("mouseenter", () => {
+          const sphere = dotElement.querySelector(".sphere") as HTMLElement;
           if (!sphere) return;
 
           sphere.style.animationDuration = "20s";
@@ -134,8 +135,8 @@ export default function SpaceAnimation() {
           });
         });
 
-        dot.addEventListener("mouseleave", () => {
-          const sphere = dot.querySelector(".sphere") as HTMLElement;
+        dotElement.addEventListener("mouseleave", () => {
+          const sphere = dotElement.querySelector(".sphere") as HTMLElement;
           if (!sphere) return;
 
           sphere.style.animationDuration = "12s";
