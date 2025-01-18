@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="py-8 md:py-12 lg:py-16 bg-primary/15 text-secondary-foreground">
-        <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1fr_1fr_auto] gap-x-8 gap-y-10">
+        <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1fr_1fr_auto] gap-x-8 gap-y-8">
           <div className="sm:col-span-2 md:col-span-1">
             <Image
               src={logo}

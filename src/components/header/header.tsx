@@ -1,27 +1,36 @@
+"use client";
+
 import darkLogo from "@/assets/images/dark-logo.png";
 import logo from "@/assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ThemeToggler } from "../theme/themeToggler";
 import { Button } from "../ui/button";
 import HeaderDrawer from "./headerDrawer";
 import NavLink from "./navLink";
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
-    <header className="py-4 sm:py-6">
-      <div className="container flex justify-between items-center">
-        <Link href="/">
-          <Image
-            src={logo}
-            alt="UU CPC Logo"
-            className="w-[150px] dark:hidden"
-          />
-          <Image
-            src={darkLogo}
-            alt="UU CPC Logo"
-            className="w-[150px] hidden dark:inline"
-          />
+    <header className="py-4 sm:py-6 relative z-10">
+      <div
+        className={`container flex justify-between items-center text-secondary-foreground ${
+          pathname === "/" ? "!text-white" : ""
+        }`}
+      >
+        <Link
+          href="/"
+          className={`dark:hidden ${pathname === "/" ? "!hidden" : ""}`}
+        >
+          <Image src={logo} alt="UU CPC Logo" className="w-[150px]" />
+        </Link>
+        <Link
+          href="/"
+          className={`hidden dark:inline ${pathname === "/" ? "!inline" : ""}`}
+        >
+          <Image src={darkLogo} alt="UU CPC Logo" className="w-[150px]" />
         </Link>
         <nav className="space-x-8 font-medium hidden xl:block">
           <NavLink text="Home" href="/" />

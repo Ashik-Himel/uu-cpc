@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import HeroSection from "./heroSection";
+import WingsSection from "./wingsSection";
 
 export const metadata: Metadata = {
   title: "UU CPC - Uttara University Computer Programming Club",
@@ -7,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <main></main>;
+  return (
+    <main className="mb-24">
+      <HeroSection />
+      <WingsSection />
+    </main>
+  );
 }
