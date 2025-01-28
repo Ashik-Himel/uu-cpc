@@ -1,0 +1,19 @@
+import LogoutToggle from "@/components/dashboard/logoutToggle";
+import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard - UU CPC",
+  description:
+    "This is the club admin's dashboard which can be accessed by UU CPC's admin.",
+};
+
+export default function AdminDashboard() {
+  return (
+    <main>
+      <div className="container my-12">
+        <LogoutToggle triggerElement={<Button>Logout</Button>} />
+      </div>
+    </main>
+  );
+}

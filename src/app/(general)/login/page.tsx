@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { LoginForm } from "./loginForm";
 
 export const metadata: Metadata = {
   title: "Login - UU CPC",
@@ -7,5 +8,11 @@ export const metadata: Metadata = {
 };
 
 export default function Login() {
-  return <main></main>;
+  return (
+    <main className="h-full md:min-height-screen flex flex-col items-center justify-start md:justify-center mx-6 md:mx-10">
+      <div className="w-full max-w-sm md:max-w-3xl my-12">
+        <LoginForm />
+      </div>
+    </main>
+  );
 }

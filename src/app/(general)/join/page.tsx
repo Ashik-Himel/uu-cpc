@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { JoinForm } from "./joinForm";
 
 export const metadata: Metadata = {
   title: "Join Club - UU CPC",
@@ -7,5 +8,11 @@ export const metadata: Metadata = {
 };
 
 export default function JoinClub() {
-  return <main></main>;
+  return (
+    <main className="h-full md:min-height-screen flex flex-col items-center justify-start md:justify-center mx-6 md:mx-10">
+      <div className="w-full max-w-sm md:max-w-3xl my-12">
+        <JoinForm />
+      </div>
+    </main>
+  );
 }

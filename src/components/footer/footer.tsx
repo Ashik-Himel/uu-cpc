@@ -69,7 +69,16 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="bg-primary text-primary-foreground py-6">
         <div className="container text-center flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>Developed by Ashikujjaman Himel</p>
+          <p>
+            Developed by{" "}
+            <Link
+              href="https://www.facebook.com/ashikujjaman.himel"
+              target="_blank"
+              className="font-medium underline"
+            >
+              Ashikujjaman Himel
+            </Link>
+          </p>
           <div className="flex gap-6">
             <Link
               href="https://www.facebook.com/ashikujjaman.himel"

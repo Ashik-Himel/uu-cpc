@@ -106,15 +106,22 @@
 .space-container {
   width: 100%;
   height: 100%;
-  background: #0a0a2a;
+  background-color: #0a0a2a;
   overflow: hidden;
   perspective: 1000px;
+}
+
+.background-overlap {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .space-background {
   position: absolute;
   inset: 0;
   z-index: -50;
+  overflow: hidden;
   background: radial-gradient(
       circle at 30% 30%,
       rgba(45, 85, 255, 0.15) 0%,
@@ -125,7 +132,6 @@
       rgba(255, 85, 85, 0.15) 0%,
       transparent 60%
     );
-  overflow: hidden;
   animation: backgroundPulse 10s ease-in-out infinite;
   mix-blend-mode: screen;
 }
@@ -163,10 +169,10 @@
 
 .portal-effect {
   position: absolute;
-  z-index: -50;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: -50;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -184,10 +190,10 @@
 
 .energy-field {
   position: absolute;
-  z-index: -50;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: -50;
   width: 120%;
   height: 120%;
   background: radial-gradient(
@@ -271,19 +277,18 @@
 
 .center-circle {
   position: absolute;
-  z-index: -50;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
     #ffffff 0%,
     #6666ff 40%,
     #3333cc 100%
   );
-  border-radius: 50%;
   box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.6),
     inset 3px 3px 8px rgba(255, 255, 255, 0.3),
     0 0 25px rgba(255, 255, 255, 0.9), 0 0 50px rgba(102, 102, 255, 0.5);

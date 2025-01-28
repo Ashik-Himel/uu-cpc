@@ -16,7 +16,7 @@ export default function DrawerNavLink({
     <SheetClose asChild>
       <Link
         href={href}
-        className="flex justify-between items-center px-2 py-2 hover:bg-gray-100 rounded-lg transition-colors"
+        className="flex justify-between items-center px-2 py-2 hover:bg-primary/10 rounded-lg transition-colors"
       >
         <div className="flex items-center gap-4 xsm:text-lg font-medium">
           {icon}

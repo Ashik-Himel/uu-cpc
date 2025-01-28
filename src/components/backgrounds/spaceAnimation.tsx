@@ -198,13 +198,13 @@ export default function SpaceAnimation() {
 
   return (
     <div className="space-container">
-      <div className="absolute inset-0 bg-black/60"></div>
+      <div className="background-overlap"></div>
       <div className="space-background" id="spaceBackground">
         <div className="nebula"></div>
       </div>
 
-      <div className="container flex justify-center md:justify-end items-center h-[calc(100vh-72px)] sm:h-[calc(100vh-88px)] mt-[69.04px] xsm:mt-[72px] sm:mt-[88px]">
-        <div className="spinner-container w-[90vw] max-w-[400px] lg:max-w-[450px] 2xl:max-w-[500px] aspect-square">
+      <div className="container flex justify-center md:justify-end items-center h-[calc(100vh-72px)] sm:h-[calc(100vh-88px)] mt-[66.56px] xsm:mt-[72px] sm:mt-[88px]">
+        <div className="w-[95vw] max-w-[450px] sm:max-w-[500px] aspect-square spinner-container">
           <div className="portal-effect"></div>
           <div className="energy-field"></div>
 

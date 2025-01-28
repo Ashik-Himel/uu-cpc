@@ -13,12 +13,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "UU CPC - Uttara University Computer Programming Club",
+  title: "Dashboard - UU CPC",
   description:
-    "Uttara University Computer Programming Club (UU CPC) is a part of Uttara University. It helps students to develop their programming skills.",
+    "This is the club admin's dashboard which can be accessed by UU CPC's admin.",
 };
 
-export default function RootLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

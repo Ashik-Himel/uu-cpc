@@ -1,3 +1,4 @@
+import { useUserStore } from "@/lib/userStore";
 import {
   Home,
   Images,
@@ -12,10 +13,12 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import DrawerNavLink from "./drawerNavLink";
 
 export default function HeaderDrawer() {
+  const user = useUserStore((state) => state.user);
+
   return (
     <Sheet>
       <SheetTrigger className="xl:hidden cursor-pointer select-none" asChild>
-        <Menu />
+        <Menu size={28} />
       </SheetTrigger>
       <SheetContent side="left" className="w-4/5 xsm:w-[320px] sm:w-[320px]">
         <SheetTitle className="px-2 uppercase text-xl text-primary">
@@ -43,16 +46,30 @@ export default function HeaderDrawer() {
             href="/about"
             icon={<ReceiptText size={22} />}
           />
-          <DrawerNavLink
-            text="Login"
-            href="/login"
-            icon={<KeyRound size={22} />}
-          />
-          <DrawerNavLink
-            text="Join Club"
-            href="/join"
-            icon={<UserPlus size={22} />}
-          />
+          {user ? (
+            <DrawerNavLink
+              text="Dashboard"
+              href={
+                user?.role === "member"
+                  ? "/member/dashboard"
+                  : "/admin/dashboard"
+              }
+              icon={<KeyRound size={22} />}
+            />
+          ) : (
+            <>
+              <DrawerNavLink
+                text="Login"
+                href="/login"
+                icon={<KeyRound size={22} />}
+              />
+              <DrawerNavLink
+                text="Join Club"
+                href="/join"
+                icon={<UserPlus size={22} />}
+              />
+            </>
+          )}
         </nav>
       </SheetContent>
     </Sheet>
