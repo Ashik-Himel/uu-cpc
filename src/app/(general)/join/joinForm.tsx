@@ -23,15 +23,29 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
     e.preventDefault();
     setSubmitDisabled(true);
 
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name")?.toString().trim() || "";
-    const email = formData.get("email")?.toString().trim() || "";
-    const studentId = parseInt(formData.get("studentId")?.toString() || "0");
-    const batch = parseInt(formData.get("batch")?.toString() || "0");
-    const section =
-      formData.get("section")?.toString().trim().toUpperCase() || "";
-    const password = formData.get("password")?.toString() || "";
-    const reTypedPassword = formData.get("reTypedPassword")?.toString() || "";
+    const form = e.currentTarget;
+    const name = (
+      form.elements.namedItem("name") as HTMLInputElement
+    ).value.trim();
+    const email = (
+      form.elements.namedItem("email") as HTMLInputElement
+    ).value.trim();
+    const studentId = parseInt(
+      (form.elements.namedItem("studentId") as HTMLInputElement).value
+    );
+    const batch = parseInt(
+      (form.elements.namedItem("batch") as HTMLInputElement).value
+    );
+    const section = (
+      form.elements.namedItem("section") as HTMLInputElement
+    ).value
+      .trim()
+      .toUpperCase();
+    const password = (form.elements.namedItem("password") as HTMLInputElement)
+      .value;
+    const reTypedPassword = (
+      form.elements.namedItem("reTypedPassword") as HTMLInputElement
+    ).value;
 
     if (!email.includes("@uttarauniversity.edu.bd")) {
       setSubmitDisabled(false);
@@ -85,7 +99,7 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden shadow">
         <CardContent className="p-0">
-          <form className="p-6 md:p-8" onSubmit={handleJoin}>
+          <form className="p-6 md:p-8" name="joinForm" onSubmit={handleJoin}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Join UU CPC Club!</h1>

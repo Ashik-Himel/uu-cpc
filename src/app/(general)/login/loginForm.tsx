@@ -28,9 +28,12 @@ export function LoginForm({
     e.preventDefault();
     setSubmitDisabled(true);
 
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email")?.toString().trim() || "";
-    const password = formData.get("password")?.toString().trim() || "";
+    const form = e.currentTarget;
+    const email = (
+      form.elements.namedItem("email") as HTMLInputElement
+    ).value.trim();
+    const password = (form.elements.namedItem("password") as HTMLInputElement)
+      .value;
 
     if (!email.endsWith("@uttarauniversity.edu.bd")) {
       setSubmitDisabled(false);
