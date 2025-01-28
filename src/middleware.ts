@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("token")?.value;
+  const token = request.cookies.get("token")?.value || "";
 
   const loginRoutes = ["/login", "/join"];
   const superAdminRoutes = ["/admin/dashboard/members"];
 
   try {
-    const user = jwt.decode(token);
+    const user = JSON.parse(JSON.stringify(jwt.decode(token)));
     if (!user) {
       if (pathname.startsWith("/member/") || pathname.startsWith("/admin/")) {
         return NextResponse.redirect(new URL("/login", request.url));

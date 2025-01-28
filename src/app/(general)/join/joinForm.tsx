@@ -23,13 +23,15 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
     e.preventDefault();
     setSubmitDisabled(true);
 
-    const name = e.target.name.value.trim();
-    const email = e.target.email.value.trim();
-    const studentId = parseInt(e.target.studentId.value);
-    const batch = parseInt(e.target.batch.value);
-    const section = e.target.section?.value?.trim()?.toUpperCase();
-    const password = e.target.password.value;
-    const reTypedPassword = e.target.reTypedPassword.value;
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name")?.toString().trim() || "";
+    const email = formData.get("email")?.toString().trim() || "";
+    const studentId = parseInt(formData.get("studentId")?.toString() || "0");
+    const batch = parseInt(formData.get("batch")?.toString() || "0");
+    const section =
+      formData.get("section")?.toString().trim().toUpperCase() || "";
+    const password = formData.get("password")?.toString() || "";
+    const reTypedPassword = formData.get("reTypedPassword")?.toString() || "";
 
     if (!email.includes("@uttarauniversity.edu.bd")) {
       setSubmitDisabled(false);

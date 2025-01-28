@@ -1,14 +1,31 @@
 import { create } from "zustand";
 
-export const useUserStore = create((set) => ({
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  studentId: number;
+  batch: number;
+  section?: string;
+  role: "member" | "admin" | "super-admin";
+}
+
+interface UserStore {
+  user: User | null;
+  userLoaded: boolean;
+  setUser: (newUser: User | null) => void;
+  setUserLoaded: (isLoaded: boolean) => void;
+}
+
+export const useUserStore = create<UserStore>((set) => ({
   user: null,
   userLoaded: false,
-  setUser: (newUser: object) =>
+  setUser: (newUser) =>
     set({
       user: newUser,
       userLoaded: true,
     }),
-  setUserLoaded: (isLoaded: boolean) =>
+  setUserLoaded: (isLoaded) =>
     set({
       userLoaded: isLoaded,
     }),

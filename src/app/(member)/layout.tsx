@@ -1,8 +1,8 @@
+import FetchUser from "@/components/fetchUser/fetchUser";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import ToastContainerComp from "@/components/toast/toastContainer";
-import FetchUser from "@/lib/fetchUser";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
