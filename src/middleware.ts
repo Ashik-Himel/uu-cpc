@@ -11,8 +11,6 @@ export async function middleware(request: NextRequest) {
 
   try {
     const user = JSON.parse(JSON.stringify(jwt.decode(token)));
-    console.log(token);
-    console.log(user);
     if (!user) {
       if (pathname.startsWith("/member/") || pathname.startsWith("/admin/")) {
         return NextResponse.redirect(new URL("/login", request.url));

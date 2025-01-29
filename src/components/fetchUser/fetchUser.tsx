@@ -17,8 +17,6 @@ export default function FetchUser() {
       }
 
       const user = JSON.parse(JSON.stringify(jwt.decode(token)));
-      console.log(token);
-      console.log(user);
       if (!user) {
         return setUserLoaded(true);
       }
