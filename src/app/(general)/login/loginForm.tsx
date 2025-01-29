@@ -45,6 +45,7 @@ export function LoginForm({
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({ email, password }),
     });
     const result = await res.json();
@@ -58,13 +59,15 @@ export function LoginForm({
         router.replace("/member/dashboard");
       }
     } else if (result.message === "User not found") {
+      setSubmitDisabled(false);
       toast.error("User not found with this email address.");
     } else if (result.message === "Invalid credentials") {
+      setSubmitDisabled(false);
       toast.error("Your credentials are invalid.");
     } else {
+      setSubmitDisabled(false);
       toast.error("An error occurred. Please try again.");
     }
-    setSubmitDisabled(false);
   };
 
   return (
