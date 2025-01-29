@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { useUserStore } from "@/lib/userStore";
 import { cn } from "@/lib/utils";
 import { serverDomain } from "@/lib/variables";
-import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,24 +40,14 @@ export function LoginForm({
       return toast.error("Please use your Uttara University email address");
     }
 
-    const res = await axios.post(
-      `${serverDomain}/api/auth/login`,
-      { email, password },
-      {
-        withCredentials: true,
-      }
-    );
-    const result = await res.data;
-    console.log(result);
-
-    // const res = await fetch(`${serverDomain}/api/auth/login`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ email, password }),
-    // });
-    // const result = await res.json();
+    const res = await fetch(`${serverDomain}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    const result = await res.json();
 
     if (result.ok) {
       toast.success("Logged in successfully.");
