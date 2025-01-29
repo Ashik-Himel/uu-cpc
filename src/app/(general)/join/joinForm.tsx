@@ -76,6 +76,7 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(newMember),
     });
     const result = await res.json();
