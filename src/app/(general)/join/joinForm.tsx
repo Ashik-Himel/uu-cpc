@@ -90,6 +90,10 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
         router.replace("/member/dashboard");
       }
     } else {
+      if (result.message === "User already exists") {
+        setSubmitDisabled(false);
+        return toast.error("User already exists with this email address.");
+      }
       setSubmitDisabled(false);
       toast.error("An error occurred.");
     }
