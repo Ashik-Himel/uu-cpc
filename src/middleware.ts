@@ -16,6 +16,7 @@ export async function middleware(request: NextRequest) {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
+      credentials: "include",
     });
     const result = await res.json();
     const user = result?.user || null;
