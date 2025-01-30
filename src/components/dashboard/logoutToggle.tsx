@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import { useUserStore } from "@/lib/userStore";
 import { serverDomain } from "@/lib/variables";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { toast } from "react-toastify";
@@ -23,7 +22,6 @@ export default function LogoutToggle({
   triggerElement: ReactNode;
 }) {
   const router = useRouter();
-  const token = Cookies.get("token");
   const setUser = useUserStore((state) => state.setUser);
 
   const handleLogout = async () => {
@@ -31,7 +29,6 @@ export default function LogoutToggle({
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });
