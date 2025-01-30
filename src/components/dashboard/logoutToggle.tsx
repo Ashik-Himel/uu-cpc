@@ -34,7 +34,7 @@ export default function LogoutToggle({
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerElement}</DialogTrigger>
-      <DialogContent className="w-[calc(100%-48px)] sm:max-w-[425px]">
+      <DialogContent className="w-[calc(100%-48px)] sm:max-w-[425px] rounded-lg">
         <DialogHeader className="text-left">
           <DialogTitle>Logout?</DialogTitle>
         </DialogHeader>

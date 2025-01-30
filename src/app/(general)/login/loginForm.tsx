@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import ForgotPassword from "./forgotPassword";
 
 export function LoginForm({
   className,
@@ -79,7 +80,11 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden shadow">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8" onSubmit={handleLogin}>
+          <form
+            className="p-6 md:p-8"
+            autoComplete="true"
+            onSubmit={handleLogin}
+          >
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome Back!</h1>
@@ -99,12 +104,7 @@ export function LoginForm({
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <Link
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </Link>
+                  <ForgotPassword />
                 </div>
                 <div className="relative">
                   <Input
