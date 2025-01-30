@@ -5,6 +5,7 @@ import { serverDomain } from "./lib/variables";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("token")?.value;
+  console.log(token);
 
   const loginRoutes = ["/login", "/join"];
   const superAdminRoutes = ["/admin/dashboard/members"];
