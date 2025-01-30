@@ -3,9 +3,10 @@ import { NextResponse } from "next/server";
 import { serverDomain } from "./lib/variables";
 
 export async function middleware(request: NextRequest) {
+  // Remove this line to secure private routes
+  return NextResponse.next();
+
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("token")?.value;
-  console.log(token);
 
   const loginRoutes = ["/login", "/join"];
   const superAdminRoutes = ["/admin/dashboard/members"];
@@ -15,7 +16,6 @@ export async function middleware(request: NextRequest) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });
