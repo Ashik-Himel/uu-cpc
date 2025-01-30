@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useUserStore } from "@/lib/userStore";
 import { cn } from "@/lib/utils";
 import { serverDomain } from "@/lib/variables";
+import Cookies from "js-cookie";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -76,14 +77,18 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify(newMember),
     });
     const result = await res.json();
 
     if (result.ok) {
+      Cookies.set("token", result?.token, {
+        secure: true,
+        sameSite: "Strict",
+        expires: 7,
+      });
+      setUser(result?.user);
       toast.success("Congratulations! You are now a member of UU CPC!");
-      setUser(result.user);
       if (result.user.role === "super-admin" || result.user.role === "admin") {
         router.replace("/admin/dashboard");
       } else if (result.user.role === "member") {

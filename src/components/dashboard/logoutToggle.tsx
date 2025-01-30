@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useUserStore } from "@/lib/userStore";
-import { serverDomain } from "@/lib/variables";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { toast } from "react-toastify";
@@ -25,21 +25,10 @@ export default function LogoutToggle({
   const setUser = useUserStore((state) => state.setUser);
 
   const handleLogout = async () => {
-    const res = await fetch(`${serverDomain}/api/auth/logout`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    const result = await res.json();
-    if (result.ok) {
-      toast.success("Logged out successfully");
-      setUser(null);
-      router.push("/");
-    } else {
-      toast.error(result?.message || "An error occurred");
-    }
+    Cookies.remove("token");
+    setUser(null);
+    router.push("/");
+    toast.success("Logged out successfully");
   };
 
   return (

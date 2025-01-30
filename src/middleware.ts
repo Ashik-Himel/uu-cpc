@@ -1,27 +1,16 @@
+import jwt from "jsonwebtoken";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { serverDomain } from "./lib/variables";
 
 export async function middleware(request: NextRequest) {
-  // Remove this line to secure private routes
-  return NextResponse.next();
-
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get("token")?.value || "";
 
   const loginRoutes = ["/login", "/join"];
   const superAdminRoutes = ["/admin/dashboard/members"];
 
   try {
-    const res = await fetch(`${serverDomain}/api/auth/fetch-user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    const result = await res.json();
-    const user = result?.user || null;
-
+    const user = JSON.parse(JSON.stringify(jwt.decode(token)));
     if (!user) {
       if (pathname.startsWith("/member/") || pathname.startsWith("/admin/")) {
         return NextResponse.redirect(new URL("/login", request.url));
@@ -63,6 +52,9 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.next();
   } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      return console.error(error);
+    }
     console.error(error);
   }
 }
