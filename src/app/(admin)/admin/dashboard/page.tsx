@@ -1,5 +1,4 @@
-import LogoutToggle from "@/components/dashboard/logoutToggle";
-import { Button } from "@/components/ui/button";
+import DashboardHeading from "@/components/dashboard/heading";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,9 +10,8 @@ export const metadata: Metadata = {
 export default function AdminDashboard() {
   return (
     <main>
-      <div className="container my-12">
-        <LogoutToggle triggerElement={<Button>Logout</Button>} />
-      </div>
+      <DashboardHeading headingText="Dashboard" />
+      <div className="p-4">Admin Dashboard Page</div>
     </main>
   );
 }

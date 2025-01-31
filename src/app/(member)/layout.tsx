@@ -1,8 +1,8 @@
+import { AppSidebar } from "@/components/dashboard/sidebar";
 import FetchUser from "@/components/fetchUser/fetchUser";
-import Footer from "@/components/footer/footer";
-import Header from "@/components/header/header";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import ToastContainerComp from "@/components/toast/toastContainer";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
@@ -26,7 +26,7 @@ export default function MemberLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased h-full min-h-screen flex flex-col bg-primary/5 dark:bg-gray-900`}
+        className={`${poppins.className} antialiased bg-primary/5 dark:bg-gray-900`}
       >
         <ThemeProvider
           attribute="class"
@@ -34,9 +34,10 @@ export default function MemberLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <div className="flex-1">{children}</div>
-          <Footer />
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>{children}</SidebarInset>
+          </SidebarProvider>
           <ToastContainerComp />
           <FetchUser />
         </ThemeProvider>

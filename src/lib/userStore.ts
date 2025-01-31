@@ -4,6 +4,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
+  avatar: string;
   studentId: number;
   batch: number;
   section?: string;

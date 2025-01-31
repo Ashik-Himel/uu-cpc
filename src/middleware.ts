@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value || "";
 
   const loginRoutes = ["/login", "/join"];
-  const superAdminRoutes = ["/admin/dashboard/members"];
+  const superAdminRoutes = ["/admin/members"];
 
   try {
     const user = JSON.parse(JSON.stringify(jwt.decode(token)));

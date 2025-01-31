@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import ResetPasswordForm from "./resetPasswordForm";
 
 export const metadata: Metadata = {
@@ -11,7 +12,9 @@ export default function ResetPassword() {
   return (
     <main className="h-full md:min-height-screen flex flex-col items-center justify-start md:justify-center mx-6 md:mx-10">
       <div className="w-full max-w-sm md:max-w-3xl my-8 xsm:my-10 sm:my-12 md:my-6">
-        <ResetPasswordForm />
+        <Suspense fallback={<div>Loading Password Reset Form</div>}>
+          <ResetPasswordForm />
+        </Suspense>
       </div>
     </main>
   );
