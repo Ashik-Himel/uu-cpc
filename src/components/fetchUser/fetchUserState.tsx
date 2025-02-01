@@ -11,19 +11,26 @@ export default function FetchUserState() {
   const setUserLoaded = useUserStore((state) => state.setUserLoaded);
 
   useEffect(() => {
-    fetch(`${serverDomain}/api/auth/user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result?.ok) {
-          setUser({ available: true, role: result?.user?.role });
-        } else setUserLoaded(true);
-      });
+    if (token) {
+      fetch(`${serverDomain}/api/auth/user`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (
+            result?.message === "User not found" ||
+            result?.message === "Invalid token"
+          )
+            Cookies.remove("token");
+          if (result?.ok) {
+            setUser({ available: true, role: result?.user?.role });
+          } else setUserLoaded(true);
+        });
+    } else setUserLoaded(true);
   }, [token, setUser, setUserLoaded]);
 
   return null;

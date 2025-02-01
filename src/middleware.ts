@@ -9,14 +9,29 @@ export async function middleware(request: NextRequest) {
   const loginRoutes = ["/login", "/join"];
   const superAdminRoutes = ["/admin/members"];
 
-  const res = await fetch(`${serverDomain}/api/auth/user`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const result = await res.json();
+  let result = null;
+  if (token) {
+    const res = await fetch(`${serverDomain}/api/auth/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    result = await res.json();
+
+    if (
+      result?.message === "User not found" ||
+      result?.message === "Invalid token"
+    ) {
+      const res = NextResponse.next();
+      res.headers.append(
+        "Set-Cookie",
+        "token=; Path=/; Max-Age=0; Secure; SameSite=Strict"
+      );
+    }
+  }
+
   if (!result?.ok) {
     if (pathname.startsWith("/member/") || pathname.startsWith("/admin/")) {
       return NextResponse.redirect(new URL("/login", request.url));
