@@ -57,11 +57,11 @@ export function LoginForm({
         sameSite: "Strict",
         expires: 7,
       });
-      setUser(result.user);
+      setUser({ available: true, role: result?.userRole });
       toast.success("Logged in successfully.");
-      if (result.user.role === "super-admin" || result.user.role === "admin") {
+      if (result?.userRole === "super-admin" || result?.userRole === "admin") {
         router.replace("/admin/dashboard");
-      } else if (result.user.role === "member") {
+      } else if (result?.userRole === "member") {
         router.replace("/member/dashboard");
       }
     } else if (result.message === "User not found") {

@@ -17,22 +17,46 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { serverDomain } from "@/lib/variables";
+import Cookies from "js-cookie";
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import LogoutToggle from "./logoutToggle";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-    role: "member" | "admin" | "super-admin";
-  } | null;
-}) {
+interface User {
+  name: string;
+  email: string;
+  role: "member" | "admin" | "super-admin";
+  avatar: string;
+}
+
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const token = Cookies.get("token");
+  const [user, setUser] = useState<User>({
+    name: "user",
+    email: "user@uttarauniversity.edu.bd",
+    role: "member",
+    avatar: "/avatar.png",
+  });
+
+  useEffect(() => {
+    fetch(`${serverDomain}/api/auth/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result?.ok) {
+          setUser(result?.user);
+        }
+      });
+  }, [token]);
 
   return (
     <SidebarMenu>

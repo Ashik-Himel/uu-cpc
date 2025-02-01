@@ -9,14 +9,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function ThemeToggler() {
   const { theme, setTheme } = useTheme();
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setIsDarkTheme(isDark);
+  }, []);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer select-none" asChild>
-        {theme === "dark" ? <Moon /> : <Sun />}
+        {theme === "dark" || (theme === "system" && isDarkTheme) ? (
+          <Moon />
+        ) : (
+          <Sun />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mt-2" align="end">
         <DropdownMenuRadioGroup

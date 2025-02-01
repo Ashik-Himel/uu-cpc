@@ -15,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useUserStore } from "@/lib/userStore";
 import {
@@ -31,6 +32,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SheetClose } from "../ui/sheet";
 import { NavUser } from "./navUser";
 
 const adminDashboardItems = [
@@ -110,6 +112,8 @@ const memberDashboardItems = [
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { isMobile } = useSidebar();
+  console.log(isMobile);
   const pathname = usePathname();
   const user = useUserStore((state) => state.user);
 
@@ -156,35 +160,55 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-base mb-2">
-            Pages
-          </SidebarGroupLabel>
+          <SidebarGroupLabel className="text-base mb-2">Menu</SidebarGroupLabel>
           <SidebarMenu>
             {(user?.role === "member"
               ? memberDashboardItems
               : adminDashboardItems
             ).map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title} asChild>
-                  <Link
-                    href={item?.url}
-                    className={
-                      pathname === item?.url
-                        ? "inline-block bg-primary text-background rounded-lg hover:bg-primary hover:text-background active:bg-primary active:text-background py-5"
-                        : "py-5"
-                    }
-                  >
-                    {item.icon && <item.icon />}
-                    <span className="text-base font-medium">{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
+                {isMobile ? (
+                  <SheetClose asChild>
+                    <SidebarMenuButton tooltip={item.title} asChild>
+                      <Link
+                        href={item?.url}
+                        className={
+                          pathname === item?.url
+                            ? "inline-block bg-primary text-background rounded-lg hover:!bg-primary hover:!text-background active:!bg-primary active:!text-background py-5"
+                            : "py-5"
+                        }
+                      >
+                        {item.icon && <item.icon />}
+                        <span className="text-base font-medium">
+                          {item.title}
+                        </span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SheetClose>
+                ) : (
+                  <SidebarMenuButton tooltip={item.title} asChild>
+                    <Link
+                      href={item?.url}
+                      className={
+                        pathname === item?.url
+                          ? "inline-block bg-primary text-background rounded-lg hover:!bg-primary hover:!text-background active:!bg-primary active:!text-background py-5"
+                          : "py-5"
+                      }
+                    >
+                      {item.icon && <item.icon />}
+                      <span className="text-base font-medium">
+                        {item.title}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                )}
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

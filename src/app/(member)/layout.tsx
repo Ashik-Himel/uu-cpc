@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/dashboard/sidebar";
-import FetchUser from "@/components/fetchUser/fetchUser";
+import FetchUserState from "@/components/fetchUser/fetchUserState";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import ToastContainerComp from "@/components/toast/toastContainer";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -39,7 +39,7 @@ export default function MemberLayout({
             <SidebarInset>{children}</SidebarInset>
           </SidebarProvider>
           <ToastContainerComp />
-          <FetchUser />
+          <FetchUserState />
         </ThemeProvider>
       </body>
     </html>

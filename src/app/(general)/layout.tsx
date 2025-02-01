@@ -1,4 +1,4 @@
-import FetchUser from "@/components/fetchUser/fetchUser";
+import FetchUserState from "@/components/fetchUser/fetchUserState";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import { ThemeProvider } from "@/components/theme/themeProvider";
@@ -38,7 +38,7 @@ export default function RootLayout({
           <div className="flex-1">{children}</div>
           <Footer />
           <ToastContainerComp />
-          <FetchUser />
+          <FetchUserState />
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { serverDomain } from "./lib/variables";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -9,54 +9,53 @@ export async function middleware(request: NextRequest) {
   const loginRoutes = ["/login", "/join"];
   const superAdminRoutes = ["/admin/members"];
 
-  try {
-    const user = JSON.parse(JSON.stringify(jwt.decode(token)));
-    if (!user) {
-      if (pathname.startsWith("/member/") || pathname.startsWith("/admin/")) {
-        return NextResponse.redirect(new URL("/login", request.url));
-      }
-    } else {
-      if (loginRoutes.includes(pathname)) {
-        if (user?.role === "member") {
-          return NextResponse.redirect(
-            new URL("/member/dashboard", request.url)
-          );
-        } else if (user?.role === "admin" || user?.role === "super-admin") {
-          return NextResponse.redirect(
-            new URL("/admin/dashboard", request.url)
-          );
-        }
-      }
-
-      if (user?.role === "member" && pathname.startsWith("/admin")) {
+  const res = await fetch(`${serverDomain}/api/auth/user`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await res.json();
+  if (!result?.ok) {
+    if (pathname.startsWith("/member/") || pathname.startsWith("/admin/")) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  } else {
+    if (loginRoutes.includes(pathname)) {
+      if (result?.user?.role === "member") {
         return NextResponse.redirect(new URL("/member/dashboard", request.url));
-      }
-      if (user?.role !== "super-admin" && superAdminRoutes.includes(pathname)) {
-        if (user.role === "admin") {
-          return NextResponse.redirect(
-            new URL("/admin/dashboard", request.url)
-          );
-        } else if (user.role === "member") {
-          return NextResponse.redirect(
-            new URL("/member/dashboard", request.url)
-          );
-        }
-      }
-      if (
-        (user?.role === "admin" || user?.role === "super-admin") &&
-        pathname.startsWith("/member/")
+      } else if (
+        result?.user?.role === "admin" ||
+        result?.user?.role === "super-admin"
       ) {
         return NextResponse.redirect(new URL("/admin/dashboard", request.url));
       }
     }
 
-    return NextResponse.next();
-  } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      return console.error(error);
+    if (result?.user?.role === "member" && pathname.startsWith("/admin")) {
+      return NextResponse.redirect(new URL("/member/dashboard", request.url));
     }
-    console.error(error);
+    if (
+      result?.user?.role !== "super-admin" &&
+      superAdminRoutes.includes(pathname)
+    ) {
+      if (result?.user?.role === "admin") {
+        return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+      } else if (result?.user?.role === "member") {
+        return NextResponse.redirect(new URL("/member/dashboard", request.url));
+      }
+    }
+    if (
+      (result?.user?.role === "admin" ||
+        result?.user?.role === "super-admin") &&
+      pathname.startsWith("/member/")
+    ) {
+      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+    }
   }
+
+  return NextResponse.next();
 }
 
 export const config = {

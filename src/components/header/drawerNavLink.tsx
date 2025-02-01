@@ -1,5 +1,6 @@
-import { MoveRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 import { SheetClose } from "../ui/sheet";
 
@@ -12,17 +13,21 @@ export default function DrawerNavLink({
   href: string;
   icon: ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <SheetClose asChild>
       <Link
         href={href}
-        className="flex justify-between items-center px-2 py-2 hover:bg-primary/10 rounded-lg transition-colors"
+        className={cn(
+          "flex items-center gap-3 px-2 py-2.5 rounded-lg text-sidebar-foreground font-medium hover:bg-accent",
+          pathname === href
+            ? "bg-primary text-background hover:bg-primary py-2 mb-1"
+            : ""
+        )}
       >
-        <div className="flex items-center gap-4 xsm:text-lg font-medium">
-          {icon}
-          {text}
-        </div>
-        <MoveRight />
+        {icon}
+        <span className="text-base font-medium">{text}</span>
       </Link>
     </SheetClose>
   );
