@@ -27,17 +27,17 @@ export default function HeaderDrawer() {
         <Image
           src={logo}
           alt="UU CPC Logo"
-          className="dark:hidden w-[150px] px-3 py-2 mb-5"
+          className="dark:hidden w-[150px] p-2 mb-5"
         />
         <Image
           src={darkLogo}
           alt="UU CPC Logo"
-          className="hidden dark:inline w-[150px] px-3 py-2 mb-5"
+          className="hidden dark:inline w-[150px] p-2 mb-5"
         />
-        <SheetTitle className="text-sidebar-foreground text-base font-medium mb-3 px-2">
+        <SheetTitle className="text-sidebar-foreground/70 text-base font-medium mb-3 px-2">
           Menu
         </SheetTitle>
-        <nav>
+        <nav className="space-y-1.5">
           <DrawerNavLink text="Home" href="/" icon={<Home size={16} />} />
           <DrawerNavLink
             text="Announcements"
