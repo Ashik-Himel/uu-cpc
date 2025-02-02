@@ -163,7 +163,9 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
                   <div className="grid gap-2">
                     <Label htmlFor="section">
                       Section{" "}
-                      <span className="text-primary italic">(optional)</span>
+                      <span className="text-xs xsm:text-sm text-primary italic">
+                        (optional)
+                      </span>
                     </Label>
                     <Input
                       id="section"

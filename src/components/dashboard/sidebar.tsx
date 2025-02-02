@@ -115,7 +115,6 @@ const memberDashboardItems = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { isMobile } = useSidebar();
-  console.log(isMobile);
   const pathname = usePathname();
   const user = useUserStore((state) => state.user);
 

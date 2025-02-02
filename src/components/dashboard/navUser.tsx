@@ -23,6 +23,7 @@ import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { SheetClose } from "../ui/sheet";
 import LogoutToggle from "./logoutToggle";
 
 interface User {
@@ -113,10 +114,19 @@ export function NavUser() {
                   user?.role === "member" ? "/member/profile" : "/admin/profile"
                 }
               >
-                <DropdownMenuItem className="cursor-pointer select-none">
-                  <Settings />
-                  Profile
-                </DropdownMenuItem>
+                {isMobile ? (
+                  <SheetClose asChild>
+                    <DropdownMenuItem className="cursor-pointer select-none">
+                      <Settings />
+                      Profile
+                    </DropdownMenuItem>
+                  </SheetClose>
+                ) : (
+                  <DropdownMenuItem className="cursor-pointer select-none">
+                    <Settings />
+                    Profile
+                  </DropdownMenuItem>
+                )}
               </Link>
               <DropdownMenuSeparator />
               <LogoutToggle

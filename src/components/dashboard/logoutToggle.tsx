@@ -13,7 +13,6 @@ import { useUserStore } from "@/lib/userStore";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
-import { toast } from "react-toastify";
 import { Button } from "../ui/button";
 
 export default function LogoutToggle({
@@ -28,7 +27,6 @@ export default function LogoutToggle({
     Cookies.remove("token");
     setUser(null);
     router.push("/");
-    toast.success("Logged out successfully");
   };
 
   return (

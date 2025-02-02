@@ -15,7 +15,9 @@ export default function DashboardHeading({
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 h-4" />
       <div className="w-full flex justify-between items-center gap-4">
-        <h4 className="text-lg font-medium">{headingText}</h4>
+        <h4 className="text-lg font-medium w-[calc(100vw-216.87px)] sm:w-auto text-nowrap text-ellipsis overflow-hidden">
+          {headingText}
+        </h4>
         <div className="flex items-center gap-4">
           <ThemeToggler />
           <Button variant="outline" className="hidden sm:inline-flex" asChild>
