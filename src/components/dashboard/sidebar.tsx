@@ -48,7 +48,7 @@ const adminDashboardItems = [
   },
   {
     title: "Users",
-    url: "/admin/members",
+    url: "/admin/users",
     icon: UsersIcon,
   },
   {
@@ -75,6 +75,7 @@ const adminDashboardItems = [
     title: "Back to Home",
     url: "/",
     icon: ArrowLeft,
+    superRoute: false,
   },
 ];
 
@@ -100,14 +101,15 @@ const memberDashboardItems = [
     icon: LaptopMinimalCheck,
   },
   {
-    title: "Feedbacks",
-    url: "/member/feedbacks",
+    title: "Send Feedback",
+    url: "/member/feedback",
     icon: MessageSquareText,
   },
   {
     title: "Back to Home",
     url: "/",
     icon: ArrowLeft,
+    superRoute: false,
   },
 ];
 
@@ -165,10 +167,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {(user?.role === "member"
               ? memberDashboardItems
               : adminDashboardItems
-            ).map((item) => (
-              <SidebarMenuItem key={item.title}>
-                {isMobile ? (
-                  <SheetClose asChild>
+            ).map((item) =>
+              item?.superRoute && user?.role !== "super-admin" ? null : (
+                <SidebarMenuItem key={item.title}>
+                  {isMobile ? (
+                    <SheetClose asChild>
+                      <SidebarMenuButton tooltip={item.title} asChild>
+                        <Link
+                          href={item?.url}
+                          className={
+                            pathname === item?.url
+                              ? "inline-block bg-primary text-background rounded-lg hover:!bg-primary hover:!text-background active:!bg-primary active:!text-background py-5"
+                              : "py-5"
+                          }
+                        >
+                          {item.icon && <item.icon />}
+                          <span className="text-base font-medium">
+                            {item.title}
+                          </span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SheetClose>
+                  ) : (
                     <SidebarMenuButton tooltip={item.title} asChild>
                       <Link
                         href={item?.url}
@@ -184,26 +204,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         </span>
                       </Link>
                     </SidebarMenuButton>
-                  </SheetClose>
-                ) : (
-                  <SidebarMenuButton tooltip={item.title} asChild>
-                    <Link
-                      href={item?.url}
-                      className={
-                        pathname === item?.url
-                          ? "inline-block bg-primary text-background rounded-lg hover:!bg-primary hover:!text-background active:!bg-primary active:!text-background py-5"
-                          : "py-5"
-                      }
-                    >
-                      {item.icon && <item.icon />}
-                      <span className="text-base font-medium">
-                        {item.title}
-                      </span>
-                    </Link>
-                  </SidebarMenuButton>
-                )}
-              </SidebarMenuItem>
-            ))}
+                  )}
+                </SidebarMenuItem>
+              )
+            )}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

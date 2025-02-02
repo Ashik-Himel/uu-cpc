@@ -36,10 +36,10 @@ export function NavUser() {
   const { isMobile } = useSidebar();
   const token = Cookies.get("token");
   const [user, setUser] = useState<User>({
-    name: "user",
+    name: "User",
     email: "user@uttarauniversity.edu.bd",
     role: "member",
-    avatar: "/avatar.png",
+    avatar: "/",
   });
 
   useEffect(() => {
