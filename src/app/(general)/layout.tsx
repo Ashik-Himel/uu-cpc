@@ -1,6 +1,7 @@
 import FetchUserState from "@/components/fetchUser/fetchUserState";
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
+import QueryProvider from "@/components/queryProvider/queryProvider";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import ToastContainerComp from "@/components/toast/toastContainer";
 import type { Metadata } from "next";
@@ -34,11 +35,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <div className="flex-1">{children}</div>
-          <Footer />
-          <ToastContainerComp />
-          <FetchUserState />
+          <QueryProvider>
+            <Header />
+            <div className="flex-1">{children}</div>
+            <Footer />
+            <ToastContainerComp />
+            <FetchUserState />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

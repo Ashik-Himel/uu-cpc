@@ -107,7 +107,7 @@ export default function ResetPasswordForm({
                 className="w-full"
                 disabled={submitDisabled}
               >
-                Reset
+                {submitDisabled ? "Processing..." : "Reset"}
               </Button>
             </div>
           </form>

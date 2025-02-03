@@ -125,7 +125,7 @@ export function LoginForm({
                 className="w-full"
                 disabled={submitDisabled}
               >
-                Login
+                {submitDisabled ? "Logging in..." : "Login"}
               </Button>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}

@@ -1,5 +1,7 @@
 import { AppSidebar } from "@/components/dashboard/sidebar";
+import VerifyProfileWarning from "@/components/dashboard/verifyProfileWarning";
 import FetchUserState from "@/components/fetchUser/fetchUserState";
+import QueryProvider from "@/components/queryProvider/queryProvider";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import ToastContainerComp from "@/components/toast/toastContainer";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -34,12 +36,17 @@ export default function MemberLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>{children}</SidebarInset>
-          </SidebarProvider>
-          <ToastContainerComp />
-          <FetchUserState />
+          <QueryProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>
+                <VerifyProfileWarning />
+                {children}
+              </SidebarInset>
+            </SidebarProvider>
+            <ToastContainerComp />
+            <FetchUserState />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

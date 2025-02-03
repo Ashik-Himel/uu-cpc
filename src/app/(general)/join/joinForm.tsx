@@ -207,7 +207,7 @@ export function JoinForm({ className, ...props }: React.ComponentProps<"div">) {
                 className="w-full"
                 disabled={submitDisabled}
               >
-                Join Club
+                {submitDisabled ? "Submitting..." : "Join Now"}
               </Button>
               <div className="text-center text-sm">
                 Already have an account?{" "}

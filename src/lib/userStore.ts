@@ -8,13 +8,16 @@ interface User {
 interface UserStore {
   user: User | null;
   userLoaded: boolean;
+  verifyWarnDisappear: boolean;
   setUser: (userState: User | null) => void;
   setUserLoaded: (isLoaded: boolean) => void;
+  setVerifyWarnDisappear: (isWarnDisappear: boolean) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   userLoaded: false,
+  verifyWarnDisappear: false,
   setUser: (userState) =>
     set({
       user: userState,
@@ -23,5 +26,9 @@ export const useUserStore = create<UserStore>((set) => ({
   setUserLoaded: (isLoaded) =>
     set({
       userLoaded: isLoaded,
+    }),
+  setVerifyWarnDisappear: (isWarnDisappear) =>
+    set({
+      verifyWarnDisappear: isWarnDisappear,
     }),
 }));

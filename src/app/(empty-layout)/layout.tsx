@@ -1,10 +1,7 @@
-import { AppSidebar } from "@/components/dashboard/sidebar";
-import VerifyProfileWarning from "@/components/dashboard/verifyProfileWarning";
 import FetchUserState from "@/components/fetchUser/fetchUserState";
 import QueryProvider from "@/components/queryProvider/queryProvider";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import ToastContainerComp from "@/components/toast/toastContainer";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
@@ -15,12 +12,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard - UU CPC",
+  title: "UU CPC - Uttara University Computer Programming Club",
   description:
-    "This is the club admin's dashboard which can be accessed by UU CPC's admin.",
+    "Uttara University Computer Programming Club (UU CPC) is a part of Uttara University. It helps students to develop their programming skills.",
 };
 
-export default function AdminLayout({
+export default function EmptyLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -37,13 +34,7 @@ export default function AdminLayout({
           disableTransitionOnChange
         >
           <QueryProvider>
-            <SidebarProvider>
-              <AppSidebar />
-              <SidebarInset>
-                <VerifyProfileWarning />
-                {children}
-              </SidebarInset>
-            </SidebarProvider>
+            {children}
             <ToastContainerComp />
             <FetchUserState />
           </QueryProvider>
