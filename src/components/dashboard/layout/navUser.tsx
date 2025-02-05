@@ -23,7 +23,7 @@ import Cookies from "js-cookie";
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { SheetClose } from "../ui/sheet";
+import { SheetClose } from "../../ui/sheet";
 import LogoutToggle from "./logoutToggle";
 
 export function NavUser() {

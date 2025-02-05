@@ -5,8 +5,9 @@ import { serverDomain } from "@/lib/variables";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { X } from "lucide-react";
+import { useState } from "react";
 import { toast } from "react-toastify";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Dialog,
   DialogClose,
@@ -15,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "../../ui/dialog";
 
 export default function VerifyProfileWarning() {
   const token = Cookies.get("token");
@@ -25,8 +26,12 @@ export default function VerifyProfileWarning() {
   const setVerifyWarnDisappear = useUserStore(
     (state) => state.setVerifyWarnDisappear
   );
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [getButtonDisabled, setGetButtonDisabled] = useState(false);
 
   const handleGetEmail = async () => {
+    setGetButtonDisabled(true);
+
     const res = await fetch(`${serverDomain}/api/auth/verify-profile`, {
       method: "GET",
       headers: {
@@ -35,7 +40,14 @@ export default function VerifyProfileWarning() {
       },
     });
     const result = await res.json();
-    toast.success(result?.message || "An error occurred");
+
+    if (result?.ok) {
+      toast.success(result?.message);
+    } else {
+      toast.error(result?.message || "An error occurred");
+    }
+    setGetButtonDisabled(false);
+    setIsEditDialogOpen(false);
   };
 
   const { data: user, isLoading } = useQuery({
@@ -59,7 +71,7 @@ export default function VerifyProfileWarning() {
       <div className="flex-1 text-center">
         <span>
           Your account is not verified. Verify your account now.{" "}
-          <Dialog>
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
             <DialogTrigger asChild>
               <span className="font-semibold underline text-nowrap cursor-pointer select-none">
                 Verify Now
@@ -78,9 +90,9 @@ export default function VerifyProfileWarning() {
                   <DialogClose asChild>
                     <Button variant="outline">Close</Button>
                   </DialogClose>
-                  <DialogClose asChild>
-                    <Button onClick={handleGetEmail}>Get Email</Button>
-                  </DialogClose>
+                  <Button onClick={handleGetEmail} disabled={getButtonDisabled}>
+                    {getButtonDisabled ? "Sending..." : "Get Email"}
+                  </Button>
                 </div>
               </DialogFooter>
             </DialogContent>

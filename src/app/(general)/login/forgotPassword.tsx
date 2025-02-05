@@ -16,6 +16,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function ForgotPassword() {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,9 +44,10 @@ export default function ForgotPassword() {
     const result = await res.json();
 
     if (result.ok) {
-      setSubmitDisabled(false);
-      toast.success(result.message);
       form.reset();
+      setSubmitDisabled(false);
+      setIsEditDialogOpen(false);
+      toast.success(result.message);
     } else {
       setSubmitDisabled(false);
       toast.error(result.message);
@@ -53,7 +55,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <Dialog>
+    <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
       <DialogTrigger asChild>
         <span className="cursor-pointer select-none ml-auto text-sm underline-offset-2 hover:underline">
           Forgot your password?

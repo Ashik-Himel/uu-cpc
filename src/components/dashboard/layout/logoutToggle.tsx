@@ -13,7 +13,7 @@ import { useUserStore } from "@/lib/userStore";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 export default function LogoutToggle({
   triggerElement,

@@ -1,5 +1,5 @@
-import { AppSidebar } from "@/components/dashboard/sidebar";
-import VerifyProfileWarning from "@/components/dashboard/verifyProfileWarning";
+import { AppSidebar } from "@/components/dashboard/layout/sidebar";
+import VerifyProfileWarning from "@/components/dashboard/layout/verifyProfileWarning";
 import FetchUserState from "@/components/fetchUser/fetchUserState";
 import QueryProvider from "@/components/queryProvider/queryProvider";
 import { ThemeProvider } from "@/components/theme/themeProvider";
@@ -39,7 +39,7 @@ export default function MemberLayout({
           <QueryProvider>
             <SidebarProvider>
               <AppSidebar />
-              <SidebarInset>
+              <SidebarInset className="bg-primary/5 dark:bg-gray-900">
                 <VerifyProfileWarning />
                 {children}
               </SidebarInset>

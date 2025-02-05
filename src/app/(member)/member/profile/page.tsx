@@ -1,4 +1,5 @@
-import DashboardHeading from "@/components/dashboard/heading";
+import DashboardHeading from "@/components/dashboard/layout/heading";
+import Profile from "@/components/dashboard/profile/profile";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +12,9 @@ export default function MemberProfile() {
   return (
     <main>
       <DashboardHeading headingText="Profile" />
-      <div className="p-4">Member Profile Page</div>
+      <div className="p-6">
+        <Profile />
+      </div>
     </main>
   );
 }

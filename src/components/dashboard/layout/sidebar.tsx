@@ -32,7 +32,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SheetClose } from "../ui/sheet";
+import { SheetClose } from "../../ui/sheet";
 import { NavUser } from "./navUser";
 
 const adminDashboardItems = [
