@@ -11,10 +11,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { compressImage, getCroppedImg } from "@/lib/imageUtils";
+import { serverDomain } from "@/lib/variables";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import ReactCrop, { type Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { toast } from "react-toastify";
 
 interface AvatarEditorDialogProps {
   open: boolean;
@@ -29,6 +32,7 @@ export function AvatarEditorDialog({
   currentAvatarUrl,
   userRefetch,
 }: AvatarEditorDialogProps) {
+  const token = Cookies.get("token");
   const [crop, setCrop] = useState<Crop>({
     unit: "px",
     width: 100,
@@ -67,14 +71,24 @@ export function AvatarEditorDialog({
       const formData = new FormData();
       formData.append("avatar", compressedFile);
 
-      // Perform server operation
-      const result = { ok: true, url: "" };
+      const res = await fetch(`${serverDomain}/api/auth/update-avatar`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      const result = await res.json();
 
-      if (result.ok && result.url) {
+      if (result.ok) {
         userRefetch();
         onOpenChange(false);
+        toast.success(result?.message);
+      } else {
+        toast.error(result?.message);
       }
     } catch (error) {
+      toast.error("Error to process image. Please try again!");
       console.error("Failed to process image:", error);
     } finally {
       setIsUploading(false);
