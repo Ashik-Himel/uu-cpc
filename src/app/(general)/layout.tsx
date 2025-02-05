@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased h-full min-h-screen flex flex-col bg-primary/5 dark:bg-gray-900`}
+        className={`${poppins.className} antialiased h-full min-h-screen flex flex-col bg-primary/5 dark:bg-gray-900 selection:bg-primary selection:text-white selection:dark:text-black`}
       >
         <ThemeProvider
           attribute="class"

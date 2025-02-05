@@ -30,7 +30,7 @@ export function AvatarEditorDialog({
   userRefetch,
 }: AvatarEditorDialogProps) {
   const [crop, setCrop] = useState<Crop>({
-    unit: "%",
+    unit: "px",
     width: 100,
     height: 100,
     x: 0,
@@ -84,9 +84,11 @@ export function AvatarEditorDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[calc(100%-48px)] sm:max-w-[425px] rounded-lg">
         <DialogHeader>
-          <DialogTitle>Update Photo</DialogTitle>
+          <DialogTitle className="sm:text-center">
+            {!selectedImage ? "Update Photo" : "Crop Photo"}
+          </DialogTitle>
           <DialogDescription className="sr-only">
             Upload your profile picture.
           </DialogDescription>
@@ -115,22 +117,23 @@ export function AvatarEditorDialog({
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-col justify-center">
               <ReactCrop
                 crop={crop}
                 onChange={(c) => setCrop(c)}
                 aspect={1}
                 circularCrop
+                className="inline-block mx-auto"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   ref={imageRef}
                   src={selectedImage}
                   alt="Uploaded Image"
-                  className="max-h-[400px] w-auto mx-auto"
+                  className="!max-h-[calc(100vh-194px)] w-auto"
                 />
               </ReactCrop>
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-center gap-2">
                 <Button
                   variant="outline"
                   onClick={() => setSelectedImage(null)}

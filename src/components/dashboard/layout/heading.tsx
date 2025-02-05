@@ -18,7 +18,7 @@ export default function DashboardHeading({
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 h-4" />
       <div className="w-full flex justify-between items-center gap-4">
-        <h4 className="text-lg font-medium w-[calc(100vw-216.87px)] sm:w-auto text-nowrap text-ellipsis overflow-hidden">
+        <h4 className="text-lg font-medium w-[calc(100vw-173.40px)] xsm:w-[calc(100vw-266.27px)] sm:w-auto text-nowrap text-ellipsis overflow-hidden">
           {headingText}
         </h4>
         <div className="flex items-center gap-4">
@@ -39,7 +39,11 @@ export default function DashboardHeading({
               </span>
             )}
           </div>
-          <LogoutToggle triggerElement={<Button>Logout</Button>} />
+          <LogoutToggle
+            triggerElement={
+              <Button className="hidden xsm:inline-flex">Logout</Button>
+            }
+          />
         </div>
       </div>
     </header>

@@ -31,6 +31,7 @@ import { AvatarEditorDialog } from "./avatarEditDialog";
 export default function Profile() {
   const token = Cookies.get("token");
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isPictureEditing, setIsPictureEditing] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [updateProfileSubmitDisabled, setUpdateProfileSubmitDisabled] =
     useState(false);
@@ -55,8 +56,6 @@ export default function Profile() {
       return result?.user;
     },
   });
-
-  const [isEditing, setIsEditing] = useState(false);
 
   const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -174,13 +173,13 @@ export default function Profile() {
             <Button
               size="icon"
               className="absolute bottom-0 right-0 rounded-full"
-              onClick={() => setIsEditing(true)}
+              onClick={() => setIsPictureEditing(true)}
             >
               <Pencil className="h-4 w-4" />
             </Button>
             <AvatarEditorDialog
-              open={isEditing}
-              onOpenChange={setIsEditing}
+              open={isPictureEditing}
+              onOpenChange={setIsPictureEditing}
               currentAvatarUrl={user?.avatar}
               userRefetch={refetch}
             />

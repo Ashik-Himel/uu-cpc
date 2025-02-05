@@ -28,7 +28,7 @@ export default function MemberLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased bg-primary/5 dark:bg-gray-900`}
+        className={`${poppins.className} antialiased bg-primary/5 dark:bg-gray-900 selection:bg-primary selection:text-white selection:dark:text-black`}
       >
         <ThemeProvider
           attribute="class"

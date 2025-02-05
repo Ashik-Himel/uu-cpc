@@ -67,15 +67,19 @@ export default function VerifyProfileWarning() {
   if (isLoading || user?.verified || verifyWarnDisappear) return null;
 
   return (
-    <div className="bg-primary/5 text-primary font-medium p-4 flex justify-between items-center gap-4">
+    <div className="bg-primary text-white dark:text-black font-medium p-4 flex justify-between items-center gap-4">
       <div className="flex-1 text-center">
-        <span>
+        <span className="leading-[2.3]">
           Your account is not verified. Verify your account now.{" "}
           <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
             <DialogTrigger asChild>
-              <span className="font-semibold underline text-nowrap cursor-pointer select-none">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-black dark:text-white ml-2"
+              >
                 Verify Now
-              </span>
+              </Button>
             </DialogTrigger>
             <DialogContent className="w-[calc(100%-48px)] sm:max-w-[450px] rounded-lg">
               <DialogHeader className="text-left">

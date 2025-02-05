@@ -39,7 +39,7 @@ export default function AdminLayout({
           <QueryProvider>
             <SidebarProvider>
               <AppSidebar />
-              <SidebarInset className="bg-primary/5 dark:bg-gray-900">
+              <SidebarInset className="bg-primary/5 dark:bg-gray-900 selection:bg-primary selection:text-white selection:dark:text-black">
                 <VerifyProfileWarning />
                 {children}
               </SidebarInset>
