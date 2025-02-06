@@ -101,8 +101,8 @@ const memberDashboardItems = [
     icon: LaptopMinimalCheck,
   },
   {
-    title: "Send Feedback",
-    url: "/member/feedback",
+    title: "Your Feedbacks",
+    url: "/member/feedbacks",
     icon: MessageSquareText,
   },
   {
