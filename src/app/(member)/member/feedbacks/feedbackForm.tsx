@@ -12,20 +12,50 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { serverDomain } from "@/lib/variables";
+import Cookies from "js-cookie";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function FeedbackForm() {
+  const token = Cookies.get("token");
   const [feedbackType, setFeedbackType] = useState("");
-  const [message, setMessage] = useState("");
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const handleSubmitFeedback = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitDisabled(true);
+
+    if (!feedbackType) {
+      setSubmitDisabled(false);
+      return toast.error("Please select the feedback type");
+    }
 
     const form = e.currentTarget;
-    const email = (
-      form.elements.namedItem("email") as HTMLInputElement
+    const subject = (
+      form.elements.namedItem("subject") as HTMLInputElement
     ).value.trim();
-    console.log(email);
+    const feedback = (
+      form.elements.namedItem("feedback") as HTMLInputElement
+    ).value.trim();
+
+    const res = await fetch(`${serverDomain}/api/feedbacks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ type: feedbackType, subject, feedback }),
+    });
+    const result = await res.json();
+
+    if (result.ok) {
+      toast.success("Feedback submitted successfully!");
+      form.reset();
+    } else {
+      toast.error("Failed to submit your feedback");
+    }
+    setSubmitDisabled(false);
   };
 
   return (
@@ -59,17 +89,16 @@ export default function FeedbackForm() {
           <Label htmlFor="feedback">Your Feedback</Label>
           <Textarea
             id="feedback"
+            maxLength={500}
             placeholder="Please enter your feedback here"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
             className="h-[120px] resize-none"
+            required
           />
         </div>
       </CardContent>
       <CardFooter>
-        <Button type="submit" className="w-full">
-          Submit Feedback
+        <Button type="submit" className="w-full" disabled={submitDisabled}>
+          {submitDisabled ? "Submitting" : "Submit Feedback"}
         </Button>
       </CardFooter>
     </form>
