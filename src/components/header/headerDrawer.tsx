@@ -17,6 +17,7 @@ import DrawerNavLink from "./drawerNavLink";
 
 export default function HeaderDrawer() {
   const user = useUserStore((state) => state.user);
+  const userLoaded = useUserStore((state) => state.userLoaded);
 
   return (
     <Sheet>
@@ -59,30 +60,32 @@ export default function HeaderDrawer() {
             href="/about"
             icon={<ReceiptText size={16} />}
           />
-          {user ? (
-            <DrawerNavLink
-              text="Dashboard"
-              href={
-                user?.role === "member"
-                  ? "/member/dashboard"
-                  : "/admin/dashboard"
-              }
-              icon={<KeyRound size={16} />}
-            />
-          ) : (
-            <>
+          {userLoaded ? (
+            user ? (
               <DrawerNavLink
-                text="Login"
-                href="/login"
+                text="Dashboard"
+                href={
+                  user?.role === "member"
+                    ? "/member/dashboard"
+                    : "/admin/dashboard"
+                }
                 icon={<KeyRound size={16} />}
               />
-              <DrawerNavLink
-                text="Join Club"
-                href="/join"
-                icon={<UserPlus size={16} />}
-              />
-            </>
-          )}
+            ) : (
+              <>
+                <DrawerNavLink
+                  text="Login"
+                  href="/login"
+                  icon={<KeyRound size={16} />}
+                />
+                <DrawerNavLink
+                  text="Join Club"
+                  href="/join"
+                  icon={<UserPlus size={16} />}
+                />
+              </>
+            )
+          ) : null}
         </nav>
       </SheetContent>
     </Sheet>

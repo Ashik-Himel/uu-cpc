@@ -101,7 +101,7 @@ const memberDashboardItems = [
     icon: LaptopMinimalCheck,
   },
   {
-    title: "Your Feedbacks",
+    title: "Feedbacks",
     url: "/member/feedbacks",
     icon: MessageSquareText,
   },
@@ -117,6 +117,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { isMobile } = useSidebar();
   const pathname = usePathname();
   const user = useUserStore((state) => state.user);
+  const userLoaded = useUserStore((state) => state.userLoaded);
 
   return (
     <Sidebar
@@ -163,9 +164,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarGroupLabel className="text-base mb-2">Menu</SidebarGroupLabel>
           <SidebarMenu>
-            {(user?.role === "member"
-              ? memberDashboardItems
-              : adminDashboardItems
+            {(userLoaded
+              ? user?.role === "member"
+                ? memberDashboardItems
+                : adminDashboardItems
+              : []
             ).map((item) =>
               item?.superRoute && user?.role !== "super-admin" ? null : (
                 <SidebarMenuItem key={item.title}>

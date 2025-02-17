@@ -30,7 +30,7 @@ export function NavUser() {
   const { isMobile } = useSidebar();
   const token = Cookies.get("token");
 
-  const { data: user } = useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const res = await fetch(`${serverDomain}/api/auth/user`, {
@@ -43,8 +43,9 @@ export function NavUser() {
       const result = await res.json();
       return result?.user;
     },
-    enabled: !!token,
   });
+
+  if (isLoading) return null;
 
   return (
     <SidebarMenu>

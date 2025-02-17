@@ -2,6 +2,7 @@
 
 import fallbackAvatar from "@/assets/images/fallback-avatar.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,10 +23,11 @@ import { Label } from "@/components/ui/label";
 import { serverDomain } from "@/lib/variables";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { Edit, Eye, EyeOff, Lock, Pencil } from "lucide-react";
+import { BadgeCheck, Edit, Eye, EyeOff, Lock, Pencil } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import VerifyProfileDialog from "../layout/verifyProfileDialog";
 import { AvatarEditorDialog } from "./avatarEditDialog";
 
 export default function Profile() {
@@ -161,8 +163,21 @@ export default function Profile() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6">
-      <Card>
-        <CardHeader className="text-center">
+      <Card className="relative">
+        {user?.verified ? (
+          <Badge className="absolute top-4 right-4 flex justify-center items-center gap-1">
+            <BadgeCheck size={14} /> Verified
+          </Badge>
+        ) : (
+          <VerifyProfileDialog
+            triggerElement={
+              <Badge className="absolute top-4 right-4 cursor-pointer select-none">
+                Verify Now
+              </Badge>
+            }
+          />
+        )}
+        <CardHeader className="text-center mt-4">
           <div className="inline-block mx-auto mb-4 relative">
             <Avatar className="w-32 h-32">
               <AvatarImage src={user?.avatar} alt={user?.name} />
